@@ -9,8 +9,9 @@ resource "google_container_cluster" "primary" {
   remove_default_node_pool = true
   initial_node_count       = 1
 
-  network    = google_compute_network.vpc.name
-  subnetwork = google_compute_subnetwork.subnet.name
+  network            = google_compute_network.vpc.name
+  subnetwork         = google_compute_subnetwork.subnet.name
+  # min_master_version = "1.26.5-gke.1200"
 }
 
 # Separately Managed Node Pool

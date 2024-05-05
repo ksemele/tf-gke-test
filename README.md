@@ -34,16 +34,15 @@ terraform destroy -target 'data.google_client_config.primary'
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | ~>1.4.2 |
-| <a name="requirement_google"></a> [google](#requirement\_google) | ~>4.62.0 |
-| <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | ~>2.19.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | ~>1.7.0 |
+| <a name="requirement_google"></a> [google](#requirement\_google) | ~>5.27.0 |
+| <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | ~>2.29.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_google"></a> [google](#provider\_google) | 4.62.1 |
-| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | 2.19.0 |
+| <a name="provider_google"></a> [google](#provider\_google) | 5.27.0 |
 
 ## Modules
 
@@ -57,7 +56,6 @@ No modules.
 | [google_compute_subnetwork.subnet](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_subnetwork) | resource |
 | [google_container_cluster.primary](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/container_cluster) | resource |
 | [google_container_node_pool.primary_nodes](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/container_node_pool) | resource |
-| [kubernetes_namespace.flux-system](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/namespace) | resource |
 | [google_client_config.primary](https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/client_config) | data source |
 
 ## Inputs
@@ -69,11 +67,15 @@ No modules.
 | <a name="input_project"></a> [project](#input\_project) | Google Project to create resources in | `string` | `"demo"` | no |
 | <a name="input_region"></a> [region](#input\_region) | The region to host the cluster in | `string` | `"us-central1"` | no |
 | <a name="input_vpc_host_project"></a> [vpc\_host\_project](#input\_vpc\_host\_project) | Host Project where virtual network exists | `string` | `"demo"` | no |
+| <a name="input_zone"></a> [zone](#input\_zone) | The region to host the cluster in | `string` | `"us-central1-b"` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
+| <a name="output_gcloud_gke_get_creds"></a> [gcloud\_gke\_get\_creds](#output\_gcloud\_gke\_get\_creds) | Command to get GKE credentials |
+| <a name="output_gcloud_gke_link"></a> [gcloud\_gke\_link](#output\_gcloud\_gke\_link) | GKE web ui link |
+| <a name="output_gcloud_vpc_link"></a> [gcloud\_vpc\_link](#output\_gcloud\_vpc\_link) | VPC web ui link |
 | <a name="output_kubernetes_cluster_host"></a> [kubernetes\_cluster\_host](#output\_kubernetes\_cluster\_host) | GKE Cluster Host |
 | <a name="output_kubernetes_cluster_name"></a> [kubernetes\_cluster\_name](#output\_kubernetes\_cluster\_name) | GKE Cluster Name |
 | <a name="output_project"></a> [project](#output\_project) | GCloud Project ID |

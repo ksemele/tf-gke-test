@@ -23,8 +23,11 @@ dist/
 target/
 dist/
 
-# JetBrains IDE
+# IDE
 .idea/
+.idea
+.vscode/
+.vscode
 
 # Unit test reports
 TEST*.xml
@@ -54,4 +57,7 @@ terraform.*
 *.tfvars
 flux-git-auth.yaml
 
-.idea
+
+
+# custom
+_*
