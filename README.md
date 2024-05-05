@@ -1,33 +1,38 @@
-# How to use
+# How to use repo
 
-1. Create *.tfvars file with a few variables
-```
+1. Create `terraform.tfvars` file with a few variables
+```bash
 project          = "gcp-project"
 region           = "europe-west1"
 environment_name = "demo"
 ```
 
 2. Create cluster
-```
-terraform init
-terraform apply
+All commands will be applied via Terraform 1.7.0 and via OpenTofu, the same version.
+
+Here are OpenTofu commands.
+```bash
+tofu init
+tofu apply
 ```
 
-3. Configure kubeconfig for new cluster
+3. Get the credentials for the new cluster (configure kubeconfig)
+
+You can see all useful commands and links in the output:
+```bash
+tofu output
 ```
-gcloud container clusters get-credentials $(terraform output -raw kubernetes_cluster_name) --region $(terraform output -raw region) --project $(terraform output -raw project)
+
+There is a manual command:
+```bash
+gcloud container clusters get-credentials $(tofu output -raw kubernetes_cluster_name) --region $(tofu output -raw region) --project $(tofu output -raw project)
 ```
 
 4. Destroy all resources
-```
-terraform destroy -target 'kubernetes_namespace.flux-system'
-terraform destroy -target 'google_container_node_pool.primary_nodes'
-terraform destroy -target 'google_container_cluster.primary'
-terraform destroy -target 'google_compute_subnetwork.subnet'
-terraform destroy -target 'google_compute_network.vpc'
-terraform destroy -target 'data.google_client_config.primary'
-```
 
+```bash
+tofu destroy
+```
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements

@@ -20,15 +20,15 @@ output "kubernetes_cluster_host" {
 
 output "gcloud_gke_get_creds" {
   description = "Command to get GKE credentials"
-  value = "gcloud container clusters get-credentials ${google_container_cluster.primary.name} --region ${var.region} --project ${var.project}"
+  value       = "gcloud container clusters get-credentials ${google_container_cluster.primary.name} --region ${var.region} --project ${var.project}"
 }
 
 output "gcloud_vpc_link" {
   description = "VPC web ui link"
-  value = "https://console.cloud.google.com/networking/networks/list?project=${var.project}"
+  value       = "https://console.cloud.google.com/networking/networks/list?project=${var.project}"
 }
 
 output "gcloud_gke_link" {
   description = "GKE web ui link"
-  value = "https://console.cloud.google.com/kubernetes/clusters/details/${var.region}/${var.project}-gke/details?project=${var.project}"
+  value       = "https://console.cloud.google.com/kubernetes/clusters/details/${var.region}/${var.project}-gke/details?project=${var.project}"
 }

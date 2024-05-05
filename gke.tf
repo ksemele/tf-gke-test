@@ -9,8 +9,10 @@ resource "google_container_cluster" "primary" {
   remove_default_node_pool = true
   initial_node_count       = 1
 
-  network            = google_compute_network.vpc.name
-  subnetwork         = google_compute_subnetwork.subnet.name
+  network             = google_compute_network.vpc.name
+  subnetwork          = google_compute_subnetwork.subnet.name
+  deletion_protection = false # Use this only for study purposess
+  depends_on          = [google_compute_network.vpc, google_compute_subnetwork.subnet]
   # min_master_version = "1.26.5-gke.1200"
 }
 
@@ -38,4 +40,6 @@ resource "google_container_node_pool" "primary_nodes" {
       disable-legacy-endpoints = "true"
     }
   }
+
+  depends_on = [google_container_cluster.primary]
 }
