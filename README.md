@@ -1,7 +1,7 @@
 # How to use repo
 
 1. Create `terraform.tfvars` file with a few variables
-```bash
+```shell
 project          = "gcp-project"
 region           = "europe-west1"
 environment_name = "demo"
@@ -11,7 +11,7 @@ environment_name = "demo"
 All commands will be applied via Terraform 1.7.0 and via OpenTofu, the same version.
 
 Here are OpenTofu commands.
-```bash
+```shell
 tofu init
 tofu apply
 ```
@@ -19,18 +19,22 @@ tofu apply
 3. Get the credentials for the new cluster (configure kubeconfig)
 
 You can see all useful commands and links in the output:
-```bash
+
+```shell
 tofu output
 ```
 
 There is a manual command:
-```bash
-gcloud container clusters get-credentials $(tofu output -raw kubernetes_cluster_name) --region $(tofu output -raw region) --project $(tofu output -raw project)
+
+```shell
+gcloud container clusters get-credentials $(tofu output -raw kubernetes_cluster_name) --region $(tofu output -raw zone) --project $(tofu output -raw project)
 ```
+
+Or just use `./get-credentials.sh`
 
 4. Destroy all resources
 
-```bash
+```shell
 tofu destroy
 ```
 
@@ -48,6 +52,7 @@ tofu destroy
 | Name | Version |
 |------|---------|
 | <a name="provider_google"></a> [google](#provider\_google) | 5.27.0 |
+| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | 2.29.0 |
 
 ## Modules
 
@@ -61,6 +66,8 @@ No modules.
 | [google_compute_subnetwork.subnet](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_subnetwork) | resource |
 | [google_container_cluster.primary](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/container_cluster) | resource |
 | [google_container_node_pool.primary_nodes](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/container_node_pool) | resource |
+| [google_project_service.service_networking](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/project_service) | resource |
+| [kubernetes_namespace.demo-cluster](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/namespace) | resource |
 | [google_client_config.primary](https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/client_config) | data source |
 
 ## Inputs
@@ -68,7 +75,6 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_environment_name"></a> [environment\_name](#input\_environment\_name) | n/a | `string` | `"demo"` | no |
-| <a name="input_gke_num_nodes"></a> [gke\_num\_nodes](#input\_gke\_num\_nodes) | number of gke nodes | `number` | `1` | no |
 | <a name="input_project"></a> [project](#input\_project) | Google Project to create resources in | `string` | `"demo"` | no |
 | <a name="input_region"></a> [region](#input\_region) | The region to host the cluster in | `string` | `"us-central1"` | no |
 | <a name="input_vpc_host_project"></a> [vpc\_host\_project](#input\_vpc\_host\_project) | Host Project where virtual network exists | `string` | `"demo"` | no |
@@ -85,4 +91,5 @@ No modules.
 | <a name="output_kubernetes_cluster_name"></a> [kubernetes\_cluster\_name](#output\_kubernetes\_cluster\_name) | GKE Cluster Name |
 | <a name="output_project"></a> [project](#output\_project) | GCloud Project ID |
 | <a name="output_region"></a> [region](#output\_region) | GCloud Region |
+| <a name="output_zone"></a> [zone](#output\_zone) | GCloud Project ID |
 <!-- END_TF_DOCS -->
