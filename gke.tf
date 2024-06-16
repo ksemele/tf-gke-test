@@ -1,7 +1,6 @@
-# GKE cluster
 resource "google_container_cluster" "primary" {
   name     = "${var.project}-gke"
-  location = var.region
+  location = var.zone
 
   # We can't create a cluster with no node pool defined, but we want to only use
   # separately managed node pools. So we create the smallest possible default
@@ -13,18 +12,19 @@ resource "google_container_cluster" "primary" {
   subnetwork          = google_compute_subnetwork.subnet.name
   deletion_protection = false # Use this only for study purposess
   depends_on          = [google_compute_network.vpc, google_compute_subnetwork.subnet]
-  # min_master_version = "1.26.5-gke.1200"
 }
 
-# Separately Managed Node Pool
 resource "google_container_node_pool" "primary_nodes" {
   name       = google_container_cluster.primary.name
-  location   = var.region
+  location   = var.zone
   cluster    = google_container_cluster.primary.name
-  node_count = var.gke_num_nodes
+  node_count = 1
 
   node_config {
     oauth_scopes = [
+      "https://www.googleapis.com/auth/cloud-platform",
+      "https://www.googleapis.com/auth/compute",
+      "https://www.googleapis.com/auth/devstorage.read_only",
       "https://www.googleapis.com/auth/logging.write",
       "https://www.googleapis.com/auth/monitoring",
     ]
@@ -34,8 +34,11 @@ resource "google_container_node_pool" "primary_nodes" {
     }
 
     preemptible  = true
-    machine_type = "custom-2-4096" # 1 core too low for Prometheus...
-    tags         = ["gke-node", "${var.project}-gke"]
+    machine_type = "n2-standard-8"
+    tags = [
+      "${var.environment_name}-k8s-${var.region}",
+      "${var.environment_name}-k8s-${var.region}-nodes"
+    ]
     metadata = {
       disable-legacy-endpoints = "true"
     }
