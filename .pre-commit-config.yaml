@@ -3,7 +3,11 @@ repos:
     rev: "v0.16.0"
     hooks:
       - id: terraform-docs-go
-        args: ["markdown", "table", "--output-file", "README.md", "."]
+        args: ["markdown", "table", "--output-file", "README.md", "./simple-template"]
+      - id: terraform-docs-go
+        args: ["markdown", "table", "--output-file", "README.md", "./private-cluster-module"]
+      - id: terraform-docs-go
+        args: ["markdown", "table", "--output-file", "README.md", "./bucket"]
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.4.0
     hooks:

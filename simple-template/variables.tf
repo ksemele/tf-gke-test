@@ -1,18 +1,7 @@
 variable "project" {
+  type        = string
   description = "Google Project to create resources in"
-  type        = string
   default     = "demo"
-}
-
-variable "vpc_host_project" {
-  description = "Host Project where virtual network exists"
-  type        = string
-  default     = "demo"
-}
-
-variable "environment_name" {
-  type    = string
-  default = "demo"
 }
 
 variable "region" {

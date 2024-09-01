@@ -20,12 +20,13 @@ output "kubernetes_cluster_name" {
 
 output "kubernetes_cluster_host" {
   description = "GKE Cluster Host"
+  sensitive   = true
   value       = google_container_cluster.primary.endpoint
 }
 
 output "gcloud_gke_get_creds" {
   description = "Command to get GKE credentials"
-  value       = "gcloud container clusters get-credentials ${google_container_cluster.primary.name} --region ${google_container_cluster.primary.location} --project ${var.project}"
+  value       = "gcloud container clusters get-credentials ${google_container_cluster.primary.name} --zone ${google_container_cluster.primary.location} --project ${var.project}"
 }
 
 output "gcloud_vpc_link" {
@@ -35,5 +36,5 @@ output "gcloud_vpc_link" {
 
 output "gcloud_gke_link" {
   description = "GKE web ui link"
-  value       = "https://console.cloud.google.com/kubernetes/clusters/details/${var.region}/${var.project}-gke/details?project=${var.project}"
+  value       = "https://console.cloud.google.com/kubernetes/clusters/details/${var.region}/${local.cluster_name}/details?project=${var.project}"
 }

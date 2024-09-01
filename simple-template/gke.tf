@@ -1,5 +1,9 @@
+locals {
+  cluster_name = "${var.project}-gke"
+}
+
 resource "google_container_cluster" "primary" {
-  name     = "${var.project}-gke"
+  name     = local.cluster_name
   location = var.zone
 
   # We can't create a cluster with no node pool defined, but we want to only use
@@ -10,10 +14,16 @@ resource "google_container_cluster" "primary" {
 
   network             = google_compute_network.vpc.name
   subnetwork          = google_compute_subnetwork.subnet.name
-  deletion_protection = false # Use this only for study purposess
-  depends_on          = [google_compute_network.vpc, google_compute_subnetwork.subnet]
+  deletion_protection = false # Use this only for testing purposess!
+  depends_on = [
+    google_compute_network.vpc,
+    google_compute_subnetwork.subnet
+  ]
 }
 
+# You can use only the default pool for your experiments, but in that confuguration
+# you have more flexibility. Even Prometheus or Flux doesn't run in the default node.
+# That's why I suppose to use a separate node pool.
 resource "google_container_node_pool" "primary_nodes" {
   name       = google_container_cluster.primary.name
   location   = var.zone
@@ -36,8 +46,8 @@ resource "google_container_node_pool" "primary_nodes" {
     preemptible  = true
     machine_type = "n2-standard-8"
     tags = [
-      "${var.environment_name}-k8s-${var.region}",
-      "${var.environment_name}-k8s-${var.region}-nodes"
+      "${local.cluster_name}-${var.region}",
+      "${local.cluster_name}-${var.region}-nodes"
     ]
     metadata = {
       disable-legacy-endpoints = "true"
