@@ -117,6 +117,7 @@ Some manual tests.
 
 | Name | Source | Version |
 |------|--------|---------|
+| <a name="module_flux-cluster-variables"></a> [flux-cluster-variables](#module\_flux-cluster-variables) | git@bitbucket.org:altenar/terraform-module-k8s-flux-cluster-variables.git | 1.0.0 |
 | <a name="module_gke"></a> [gke](#module\_gke) | terraform-google-modules/kubernetes-engine/google//modules/beta-private-cluster-update-variant | 32.0.0 |
 
 ## Resources
