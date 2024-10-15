@@ -101,7 +101,7 @@ Some manual tests.
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | ~>1.8.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | ~>1.9 |
 | <a name="requirement_google"></a> [google](#requirement\_google) | ~>5.41.0 |
 | <a name="requirement_google-beta"></a> [google-beta](#requirement\_google-beta) | ~> 5.41 |
 | <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | ~>2.32.0 |
